@@ -1,1 +1,111 @@
-/* TODO Add site wide styles */
+/*Add site wide styles */
+@font-face {
+    font-family: 'Nico Moji';
+    src: url('./assets/NicoMoji-Regular.ttf') format('truetype');
+    /* Adjust the path and file format as per your font file */
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    /* Add this to remove default body margin */
+    height: 100vh;
+    /* Set the body height to viewport height */
+}
+
+.loginPage,
+.signupPage {
+    display: grid;
+    grid-template-columns: 1.5fr 2.5fr 0.25fr 8fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-gap: 0px;
+    height: 100%;
+}
+
+#loginBG,
+#signupBG {
+    position: relative;
+    background-color: #030082;
+    background-image: url('./assets/Dove.png');
+    background-size: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    grid-column: 4;
+    grid-row: 1 / span 3;
+    justify-items: flex-start;
+    align-items: end;
+   
+}
+
+/* lateral line */
+.bgLat{
+    background-color: #030082;
+    grid-column: 3;
+    grid-row: 1 / span 3;
+
+    border-bottom: 100vh solid #ffffff;
+	border-left: 0px solid transparent;
+	border-right: 50px solid transparent;
+
+}
+
+#logo {
+    color: aliceblue;
+    font-size: 4.65vw;
+    font-family: 'Nico Moji';
+
+}
+
+#logan {
+    position: absolute;
+    bottom: 50px;
+    left: 40px;
+    padding: 10px;
+    color: aliceblue;
+    font-size: 2vw;
+}
+
+#loginFormContainer,
+#signupFormContainer {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-right: 5px;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    background-color: #C9C8FF;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+
+}
+
+#loginForm,
+#signupForm {
+    padding: 20px;
+}
+
+#agreeCheckbox {
+    margin: 10px;
+}
+
+button.pp,
+button.login,
+button.signup {
+    width: 100%;
+}
+
+#signupButton {
+    text-decoration: none;
+}
+
+/* Set the height of html and body elements to 100% */
+html,
+body {
+    height: 100%;
+}

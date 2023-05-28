@@ -14,19 +14,13 @@ function Navigation({ isLoaded }) {
       <ProfileButton user={sessionUser} />
     );
   } else {
-    sessionLinks = (
-      <>
-        <LoginFormModal />
-
-        <NavLink className="btn btn-light" to="/signup">Sign Up</NavLink>
-      </>
-    );
+    sessionLinks =null
   }
 
   return (
     <ul>
       <li>
-        <NavLink className="btn btn-light" exact to="/">Home</NavLink>
+  
         {isLoaded && sessionLinks}
       </li>
     </ul>

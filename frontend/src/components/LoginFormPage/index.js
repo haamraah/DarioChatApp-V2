@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 
 const LoginFormPage = () => {
 
@@ -17,9 +17,9 @@ const LoginFormPage = () => {
     <Redirect to="/" />
   );
 
- 
+
   const handleLogin = (e) => {
- 
+
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
@@ -30,36 +30,45 @@ const LoginFormPage = () => {
   };
 
   return (
-    <div className='container'>
-      <h2>Login Page</h2>
-      <form>
-        <div className="form-outline mb-4">
-          <label htmlFor="credential">credential:</label>
-          <input
-            className="form-control"
-            type="text"
-            id="credential"
-            value={credential}
-            onChange={e=>setcredential(e.target.value)}
-          />
+    <div className="loginPage">
+
+      <div id="loginFormContainer">
+        <div id="loginForm">
+          <form>
+            <div className="form-outline mb-2">
+              <input placeholder='Username' autoComplete='username' className="form-control" type="text" id="credential" value={credential}
+                onChange={e => setcredential(e.target.value)}
+              />
+            </div>
+            <div className="form-outline mb-2">
+              <input placeholder='Password' autoComplete='current-password' className="form-control" type="password" id="password" value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+            </div>
+            <button className="btn btn-primary btn-block login" type="button" onClick={handleLogin}>
+              Login
+            </button>
+            <ul>
+              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            </ul>
+          </form>
+        </div >
+        <div>
+          <span>Don't you have an account yet?</span>
+
+          <NavLink id='signupButton' to="/signup">Create an account</NavLink>
         </div>
-        <div className="form-outline mb-4">
-          <label htmlFor="password">Password:</label>
-          <input
-            className="form-control"
-            type="password"
-            id="password"
-            value={password}
-            onChange={e=>setPassword(e.target.value)}
-          />
+      </div>
+<div className='bgLat'></div>
+      <div className="bg-image" id='loginBG'>
+        <div id='logan'>
+          <p id='logo'>
+            DARIO
+          </p>
+          <p>Fast   Simple  Reliable</p>
         </div>
-        <button className="btn btn-primary btn-block mb-4" type="button" onClick={handleLogin}>
-          Login
-        </button>
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
-      </form>
+      </div>
+
     </div>
   );
 };
