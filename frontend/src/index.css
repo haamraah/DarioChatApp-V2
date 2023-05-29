@@ -19,9 +19,14 @@ body {
 .signupPage {
     display: grid;
     grid-template-columns: 1.5fr 2.5fr 0.25fr 8fr;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-rows: 30vh 60vh 10vh;
     grid-gap: 0px;
     height: 100%;
+}
+
+ul.errorList {
+    list-style-type: none;
+    color: red;
 }
 
 #loginBG,
@@ -29,7 +34,7 @@ body {
     position: relative;
     background-color: #030082;
     background-image: url('./assets/Dove.png');
-    background-size: 75%;
+    background-size: 90%;
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
@@ -37,19 +42,23 @@ body {
     grid-row: 1 / span 3;
     justify-items: flex-start;
     align-items: end;
-   
+
 }
 
 /* lateral line */
-.bgLat{
+.bgLat {
     background-color: #030082;
     grid-column: 3;
     grid-row: 1 / span 3;
 
-    border-bottom: 100vh solid #ffffff;
-	border-left: 0px solid transparent;
-	border-right: 50px solid transparent;
+    border-bottom: 95vh solid #ffffff;
+    border-left: 0px solid transparent;
+    border-right: 50px solid transparent;
 
+}
+
+#root {
+    height: inherit;
 }
 
 #logo {
@@ -71,23 +80,35 @@ body {
 #loginFormContainer,
 #signupFormContainer {
     width: 400px;
-    display: flex;
-    flex-direction: column;
+
     padding: 20px;
     margin-right: 5px;
     grid-column: 2;
     grid-row: 2;
-    align-self: center;
-    background-color: #C9C8FF;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    align-self: flex-start;
 
 
 }
 
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 2px;
+}
+
 #loginForm,
 #signupForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 20px;
+    margin-bottom: 15px;
+    background-color: #C9C8FF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+
 }
 
 #agreeCheckbox {
@@ -108,4 +129,54 @@ button.signup {
 html,
 body {
     height: 100%;
+}
+
+
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+#createAccountLink{
+    color: #C9C8FF;
+}
+    body{
+        background-color: #030082;
+    }
+    .loginPage,
+    .signupPage {
+        grid-template-columns: 1fr;
+        grid-template-rows: 30vh 60vh 10vh;
+    }
+
+    .bgLat {
+        display: none;
+    }
+
+    #loginFormContainer,
+    #signupFormContainer {
+        grid-column: 1;
+    }
+
+    #loginBG,
+    #signupBG {
+        background-size: 60%;
+
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    #logo {
+    
+        font-size: 9.2vw;
+   
+    
+    }
+    
+    #logan {
+        position: absolute;
+        bottom: 0px;
+        left: 25px;
+        padding: 10px;
+        color: aliceblue;
+        font-size: 4vw;
+    }
 }

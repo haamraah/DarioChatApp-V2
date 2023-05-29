@@ -33,18 +33,18 @@ const LoginFormPage = () => {
     <div className="loginPage">
 
       <div id="loginFormContainer">
-        <div id="loginForm">
-          <form>
-            <div className="form-outline mb-2">
-              <input placeholder='Username' autoComplete='username' className="form-control" type="text" id="credential" value={credential}
-                onChange={e => setcredential(e.target.value)}
-              />
-            </div>
-            <div className="form-outline mb-2">
-              <input placeholder='Password' autoComplete='current-password' className="form-control" type="password" id="password" value={password}
-                onChange={e => setPassword(e.target.value)}
-              />
-            </div>
+        <div >
+          <form id="loginForm">
+
+            <input placeholder='Username' autoComplete='username' className="form-control" type="text" id="credential" value={credential}
+              onChange={e => setcredential(e.target.value)}
+            />
+
+
+            <input placeholder='Password' autoComplete='current-password' className="form-control" type="password" id="password" value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+
             <button className="btn btn-primary btn-block login" type="button" onClick={handleLogin}>
               Login
             </button>
@@ -53,13 +53,13 @@ const LoginFormPage = () => {
             </ul>
           </form>
         </div >
-        <div>
+        <div id='createAccountLink'>
           <span>Don't you have an account yet?</span>
 
           <NavLink id='signupButton' to="/signup">Create an account</NavLink>
         </div>
       </div>
-<div className='bgLat'></div>
+      <div className='bgLat'></div>
       <div className="bg-image" id='loginBG'>
         <div id='logan'>
           <p id='logo'>

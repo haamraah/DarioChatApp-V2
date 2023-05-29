@@ -32,28 +32,29 @@ const SignupFormPage = () => {
 
   const isSignupDisabled = () => {
     return (
-      firstname.length < 3 ||
-      lastname.length < 3 ||
-      username.length < 4 ||
-      password.length < 6 ||
-      password!=passwordConfirm ||
+      firstname.length < 1 ||
+      lastname.length < 1 ||
+      username.length < 1 ||
+      password.length < 1 ||
       !isChecked
     );
   };
   const handleSignup = (e) => {
-    const user = { firstname, lastname, username, email, password, selectedFile, isChecked }
+    const user = { firstname, lastname, username, email, password }
     console.log('Signup button clicked');
     console.log('user', user);
 
     e.preventDefault();
-    // if (password == passwordConfirm) {
-    //   setErrors([]);
-    //   return dispatch(sessionActions.signup({ username, email, password }))
-    //     .catch(async (res) => {
-    //       const data = await res.json();
-    //       if (data && data.errors) setErrors(data.errors);
-    //     });
-    // }
+    if (password == passwordConfirm) {
+      setErrors([]);
+      return dispatch(sessionActions.signup({ firstname, lastname, username, email, password }))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+    } else {
+      setErrors(['Passwords Dosnt match'])
+    }
   };
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
@@ -63,38 +64,26 @@ const SignupFormPage = () => {
     <div className="signupPage">
 
       <div id="signupFormContainer">
-        <div id="signupForm">
-          <form>
-            <div className="form-outline mb-2">
-              <input className="form-control" placeholder='First name' type="text" id="firstname" value={firstname} onChange={e =>
-                setFirstname(e.target.value)}
-              />
-            </div>
-            <div className="form-outline mb-2">
-              <input className="form-control" placeholder='Last name' type="text" id="lastname" value={lastname} onChange={e =>
-                setLastname(e.target.value)}
-              />
-            </div>
-            <div className="form-outline mb-2">
-              <input className="form-control"  autoComplete='username' placeholder='Username' type="text" id="username" value={username} onChange={e =>
-                setUsername(e.target.value)}
-              />
-            </div>
-            <div className="form-outline mb-2">
-              <input className="form-control"  autoComplete='username' placeholder='Email' type="text" id="email" value={email} onChange={e => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="form-outline mb-2">
-              <input className="form-control" autoComplete='new-password' placeholder='Password' type="password" id="password" value={password} onChange={e =>
-                setPassword(e.target.value)}
-              />
-            </div>
-            <div className="form-outline mb-2">
-              <input className="form-control" autoComplete='new-password' placeholder='Confirm Password' type="password" id="passwordConfirm" value={passwordConfirm} onChange={e =>
-                setPasswordConfirm(e.target.value)}
-              />
-            </div>
+        <div >
+          <form id="signupForm">
 
+            <input className="form-control" placeholder='First name' type="text" id="firstname" value={firstname} onChange={e =>
+              setFirstname(e.target.value)}
+            />
+            <input className="form-control" placeholder='Last name' type="text" id="lastname" value={lastname} onChange={e =>
+              setLastname(e.target.value)}
+            />
+            <input className="form-control" autoComplete='username' placeholder='Username' type="text" id="username" value={username} onChange={e =>
+              setUsername(e.target.value)}
+            />
+            <input className="form-control" autoComplete='username' placeholder='Email' type="text" id="email" value={email} onChange={e => setEmail(e.target.value)}
+            />
+            <input className="form-control" autoComplete='new-password' placeholder='Password' type="password" id="password" value={password} onChange={e =>
+              setPassword(e.target.value)}
+            />
+            <input className="form-control" autoComplete='new-password' placeholder='Confirm Password' type="password" id="passwordConfirm" value={passwordConfirm} onChange={e =>
+              setPasswordConfirm(e.target.value)}
+            />
             <input
               type="file"
               id="profilePicture"
@@ -102,7 +91,6 @@ const SignupFormPage = () => {
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
-
             <button
               className="btn btn-primary btn-block mb-2 pp"
               type="button"
@@ -112,7 +100,6 @@ const SignupFormPage = () => {
             >
               Profile Picture
             </button>
-
             <div className="input-group">
               <input type="checkbox" id="agreeCheckbox" checked={isChecked} onChange={handleCheckboxChange} />
               <label htmlFor="agreeCheckbox">
@@ -126,12 +113,12 @@ const SignupFormPage = () => {
               onClick={handleSignup}>
               Signup
             </button>
-            <ul>
-              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
+
           </form>
         </div>
-
+        <ul className='errorList'>
+          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
       </div>
       <div className='bgLat'></div>
 

@@ -15,6 +15,12 @@ const validateSignup = [
         .exists({ checkFalsy: true })
         .isLength({ min: 4 })
         .withMessage('Please provide a username with at least 4 characters.'),
+    check('firstname')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a first name.'),
+    check('lastname')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a last name.'),
     check('username')
         .not()
         .isEmail()
@@ -22,16 +28,21 @@ const validateSignup = [
     check('password')
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
-        .withMessage('Password must be 6 characters or more.'),
-    handleValidationErrors
+        .withMessage('Password must be 6 characters or more.')
+        .matches(/\d/)
+        .withMessage('Password must contain at least one number.')
+        .matches(/[!@#$%^&*]/)
+        .withMessage('Password must contain at least one special character (!@#$%^&*).'),
+
+handleValidationErrors
 ];
 // Sign up
 router.post(
     '/',
     validateSignup,
     asyncHandler(async (req, res) => {
-        const { email, password, username } = req.body;
-        const user = await User.signup({ email, username, password });
+        const { firstname, lastname, email, password, username } = req.body;
+        const user = await User.signup({ firstname, lastname, email, username, password });
 
         await setTokenCookie(res, user);
 
