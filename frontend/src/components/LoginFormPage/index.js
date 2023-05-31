@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, NavLink } from 'react-router-dom';
+import { Redirect, NavLink,useHistory  } from 'react-router-dom';
 
 const LoginFormPage = () => {
 
@@ -10,6 +10,7 @@ const LoginFormPage = () => {
   const [credential, setcredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const history = useHistory();
 
 
 
@@ -26,6 +27,9 @@ const LoginFormPage = () => {
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
+
+        history.push('/connect');
+
       });
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 
 const SignupFormPage = () => {
 
@@ -56,6 +56,7 @@ const SignupFormPage = () => {
       setErrors(['Passwords Dosnt match'])
     }
   };
+
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
@@ -65,8 +66,13 @@ const SignupFormPage = () => {
 
       <div id="signupFormContainer">
         <div >
-          <form id="signupForm">
 
+          <form id="signupForm">
+            <div className="form-control bg-primary text-white" id='createAccountLink'>
+              <span className=' ml-4' >Already have an account? </span>
+              <NavLink className='text-dark mr-4' id='signupButton' to="/login">Login</NavLink>
+
+            </div>
             <input className="form-control" placeholder='First name' type="text" id="firstname" value={firstname} onChange={e =>
               setFirstname(e.target.value)}
             />
@@ -91,6 +97,8 @@ const SignupFormPage = () => {
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
+            {/*        PROFILE PICTURE UPLOAD TODO
+*******************************************************    
             <button
               className="btn btn-primary btn-block mb-2 pp"
               type="button"
@@ -99,8 +107,8 @@ const SignupFormPage = () => {
               }}
             >
               Profile Picture
-            </button>
-            <div className="input-group">
+            </button> */}
+            <div className="mb-2 form-control input-group">
               <input type="checkbox" id="agreeCheckbox" checked={isChecked} onChange={handleCheckboxChange} />
               <label htmlFor="agreeCheckbox">
                 I agree to the terms and conditions

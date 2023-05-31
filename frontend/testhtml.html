@@ -1,108 +1,62 @@
-'use strict';
-const { Validator } = require('sequelize');
-const bcrypt = require('bcryptjs');
+.chat-window .chat-body {
+  height: calc(450px - (45px + 70px));
+  border: 1px solid #263238;
+  background: #fff;
 
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    firstname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [3, 30]
-      }
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [3, 30]
-      }
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [4, 30],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error('Cannot be an email.');
-          }
-        }
-      }
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [3, 256]
-      }
-    },
-    hashedPassword: {
-      type: DataTypes.STRING.BINARY,
-      allowNull: false,
-      validate: {
-        len: [60, 60]
-      }
-    }
-  }, {
-    defaultScope: {
-      attributes: {
-        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
-      }
-    },
-    scopes: {
-      currentUser: {
-        attributes: { exclude: ['hashedPassword'] }
-      },
-      loginUser: {
-        attributes: {}
-      }
-    }
-  });
+  position: relative;
+}
+.chat-window .chat-body .message-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 
-  User.associate = function (models) {
-    // associations can be defined here
-  };
+.chat-window .chat-body .message-container::-webkit-scrollbar {
+  display: none;
+}
+.chat-window .chat-body .message {
+  height: auto;
+  padding: 10px;
+  display: flex;
+}
 
-  User.prototype.toSafeObject = function () {
-    const { id, username, email, firstname, lastname } = this;
-    return { id, username, email, firstname, lastname };
-  };
+.chat-window .chat-body .message .message-content {
+  width: auto;
+  height: auto;
+  min-height: 40px;
+  max-width: 120px;
+  background-color: #43a047;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
 
-  User.prototype.validatePassword = function (password) {
-    return bcrypt.compareSync(password, this.hashedPassword.toString());
-  };
+#you {
+  justify-content: flex-start;
+}
 
-  User.getCurrentUserById = async function (id) {
-    return await User.scope('currentUser').findByPk(id);
-  };
+#you .message-content {
+  justify-content: flex-start;
+}
 
-  User.login = async function ({ credential, password }) {
-    const { Op } = require('sequelize');
-    const user = await User.scope('loginUser').findOne({
-      where: {
-        [Op.or]: {
-          username: credential,
-          email: credential
-        }
-      }
-    });
-    if (user && user.validatePassword(password)) {
-      return await User.scope('currentUser').findByPk(user.id);
-    }
-  };
+#you .message-meta {
+  justify-content: flex-start;
+  margin-left: 5px;
+}
 
-  User.signup = async function ({ firstname, lastname, username, email, password }) {
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({
-      firstname,
-      lastname,
-      username,
-      email,
-      hashedPassword
-    });
-    return await User.scope('currentUser').findByPk(user.id);
-  };
+#other {
+  justify-content: flex-end;
+}
 
-  return User;
-};
+#other .message-content {
+  justify-content: flex-end;
+  background-color: cornflowerblue;
+}
